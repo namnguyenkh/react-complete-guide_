@@ -1,0 +1,273 @@
+-g is globally so we can run it from terminal
+Install package onto our computers 
+npm install -g create-react-app      
+npx create-react-app my-app
+
+
+Npm start and npm run build , and change export PORT=5000 then npm start
+
+
+1. Getting Started
+	What is react?
+	-A javascript library for building user interface only run on browser and not on server.
+	Component: SPAs include Header Component(Search Component ,etc),Body Component(List Item Component),etc components
+	Real-World SPAs & React Web Apps reactjs.org, Udemy.com
+	Why React ? UI State difficult to handle with Vanilla Javascript , Huge Ecosystem
+	React alternatives
+Understanding Single Page Applications (REACT-JS): Only one html page, content is (re)render on Client, Typically only One ReactDOM.render() call and Multi Page Applications:
+Multiple HTML Pages, Content is rendered on Server , One ReactDOM.render() call per 'widget'.
+Two kinds of Applications
+***AJAX***
+2. Refreshing Next Generation JavaScript (Optional)
+	-VAR LET(plan re-assigning variable) , CONST(unchangeable)
+	-ARROW FUNCTION const myFun = () =>{}  No more issues with the this keyword , make code shorter .
+	-Exports (Xuất) & Imports(Module) (Nhập)
+	
+	Importing default export import GIVEN_NAME from ADDRESS
+	Importing named values import { PARA_NAME } from ADDRESS
+	Importing a combination of Default Exports and Named Values import GIVEN_NAME, { PARA_NAME, ... } from ADDRESS
+	
+	Exporting default export export default GIVEN_NAME
+		you can choose the name ex: person or prs to export
+	Exporting named values export { PARA_NAME }
+		Name is defined by export 
+	
+	-Classes are blueprint of object with properties like variables attached to classes/objects and methods like function attached to classes/objects
+		**Inheritance class person extends Master** 
+
+	class Human {
+  constructor() {
+    this.gender = "male";
+  }
+  printGender() {
+    console.log(this.gender);
+  }
+}
+
+class Person extends Human {
+  constructor() {
+    super(); //executes the parent constructor
+    this.name = "Max";
+    this.gender = "female";
+  }
+  printMyName() {
+    console.log(this.name);
+  }
+}
+const person = new Person();
+person.printMyName();
+person.printGender();
+
+
+**Cleaner CODE** delete constructor and add arrow function
+class Human {
+  gender = "male";
+  printGender = () => {
+    console.log(this.gender);
+  };
+}
+
+class Person extends Human {
+  name = "Max";
+  gender = "female";
+  printMyName = () => {
+    console.log(this.name);
+  };
+}
+const person = new Person();
+person.printMyName();
+person.printGender();
+
+
+
+Spread and rest operators ...
+Spread used to split up array elements or object properties
+const numbers = [1,2,3];
+const newNumbers = [...numbers,4];
+console.log(newNumbers);//[ 1, 2, 3, 4 ]
+AND 
+const newNumbers = [numbers,4];
+console.log(newNumbers);[ [ 1, 2, 3 ], 4 ]
+OR
+const person = {
+    name: 'Max'
+}
+
+const newPerson = {
+    ...person,
+    age : 30
+}
+console.log(newPerson); { name: 'Max', age: 30 }
+
+Rest used to merge a list of function arguments into an array
+
+const filter = (...args) => {
+    return args.filter(el => el === 1);
+}
+console.log(filter(1,2,3)); [1]
+
+
+Destructuring
+Easily extract array elements or object properties and store them in variables.
+
+const numbers = [1,2,3];
+[num1,num2] = numbers;
+console.log(num1,num2); 1,2
+
+[num1,,num3] = numbers;
+console.log(num1,num3); 1,3
+
+Refreshing Array Function
+
+//Phương thức map() giúp tạo ra một mảng mới với các phần tử là kết quả từ việc thực thi một hàm lên từng phần tử của mảng được gọi.
+The map() method creates a new array populated with the results of calling a provided function on every element in the calling array.
+
+const numbers = [1,2,3];
+const doubleNumArray = numbers.map((num) => {
+     return num * 2;
+});
+console.log(doubleNumArray); [2,4,6]
+
+
+
+
+3. Understanding the Base Features & Syntax
+All core react concepts
+
+create-react-app react-complete-guide
+
+
+Understanding the Folder Structure
+
+Package.json contain dependencies 
+manifes.json create pwa 
+ONLY ONE ROOT COMPONENT IS INDEX.JS
+index.js root from index.html  import  App from App.js export App and using it <App />
+App.js default component
+JSX not html ( Facebook create it)
+JSX Restriction Hạn chế 
+Class and className are different things and in the browser the className translate it into class in html
+If h1 in div className = 'app' using declare it h1 anymore so you need to wrap everything into one root element
+
+Create function component
+Simplest component is return jsx or html
+Create folder Person then create Person.js
+
+import React from 'react';
+const person  = () => {
+    // eslint-disable-next-line react/react-in-jsx-scope
+    return <p>I'am  person</p>
+}
+export default person;
+
+
+Then import it to App.js , write  <Person /> in the return  className 
+
+You can rewrite it as much as you want 
+<Person />
+<Person />
+<Person />
+
+ Outputting Dynamic Content
+ Using {} to add  some calculate function or something 
+ Ex:return <p>I'am  person and I am {Math.floor(Math.random()*30)} years old </p>
+
+
+Working with Props when using class based-on component  it's this.props Person.js write it like 
+const person  = (props) => {
+    // eslint-disable-next-line react/react-in-jsx-scope
+    //Random only show 0 or 1 
+    //using {} to create 
+return <p>I'am  {props.name} and I am {props.age} years old </p>
+}
+
+<div className="App">
+      <h1>Hi, I am React </h1>
+      <p>This is really working!</p>
+      <Person name="Max" age="28" />
+      <Person name="Manu" age="29">
+        My Hobbies: Racing
+      </Person>
+      <Person name="Stephanie" age="26" />
+    </div>
+
+
+Understanding the Children Property
+<Person name="Manu" age="29">
+        My Hobbies: Racing //props.children
+      </Person>
+
+Person.js <p>{props.children}</p>
+
+
+Understanding & Using State
+
+State only using on class ... extends Component
+
+Handling Events with Methods
+Create function
+Clone a new persons from persons original
+switchNameHandler = () => {
+    console.log('Was clicked!');
+    //DON'T DO THIS this.state.persons[0].name = 'Nam';
+    this.setState({persons: [
+      {
+        name: "Nam",
+        age: 21,
+      },
+      {
+        name: 'Cuong',
+        age: 29
+      },
+      {
+        name: 'Stephanie',
+        age: 24
+      }
+    ]})
+  }
+  
+Using onClick 
+<button onClick={this.switchNameHandler}> Switch Name </button>
+
+Using the useState() Hook for State Manipulation
+Stateless vs Stateful Components
+A clear flow of data 
+ Passing Method References Between Components
+ 
+ Adding Two Way Binding
+Adding Styling with Stylesheets
+<div className='Person'>
+Rendering Content Conditionally
+Like if condition() {} 
+First not show person showPersons=false
+Second if click button event  togglePersonHandler will be executed that showPersons will become true and it display the person in the list 
+Handling Dynamic Content The JavaScript Way
+
+Create persons = null
+if (this.state.showPersons) === true then display the list of persons are person = (<div><Persons/></div>)
+
+OUTPUTTING LISTS data you fetch from server
+Like for() loop working with array
+ngFor of the angular 
+You have to convert this array of javascript not valid of jsx to valid of jsx
+From original array to new array
+USING map()(person => {
+Return <Person name={person.name} age={person.age}
+})
+
+LISTs AND STATE index
+Return <Person name={person.name}
+Create click={this.deletePersonHandler}
+age={person.age}
+
+Create arrow function deletePersonHandler = (personIndex) => {
+    const persons(new) = this.state.persons;
+    persons.splice(personIndex,1);
+    this.setState({persons(original): persons(new)});
+  };
+  
+Lists and Keys
+Create id to let react know unique key to work with.
+ Flexible Lists
+ Add 2 way binding in flexible list
+
